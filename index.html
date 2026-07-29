@@ -193,6 +193,9 @@ body.no-clickzones .click-zones{display:none}
 .gpage h2 .g-dot{display:inline-block;width:.62em;height:.62em;border-radius:50%;background:var(--c);margin-right:.45em;vertical-align:middle}
 .gpage .gbox{flex:1;min-height:0;overflow:auto;background:rgba(255,255,255,.85);border:2px solid var(--color-line);border-radius:14px;padding:.8em .9em;display:flex;flex-direction:column;gap:.6em;width:100%;margin-top:.3em}
 .gitem{background:#fff;border-left:5px solid var(--c,#862633);border-radius:8px;box-shadow:var(--shadow-soft);padding:.6em .9em;font-size:clamp(1.15rem,1.5vw,1.55rem);line-height:1.55;white-space:pre-wrap}
+.gitem.gimg{padding:.45em}.gitem.gimg img{display:block;max-width:100%;max-height:34vh;border-radius:6px;cursor:zoom-in}
+.imglight{position:fixed;inset:0;z-index:400;background:rgba(20,10,12,.9);display:flex;align-items:center;justify-content:center;cursor:zoom-out}
+.imglight img{max-width:94vw;max-height:94vh;border-radius:10px;box-shadow:0 24px 70px rgba(0,0,0,.5)}
 .gbox .empty-hint{margin:auto;font-size:1.05rem;color:var(--color-muted);font-style:italic;text-align:center}
 #fbStatus{font-weight:700}
 /* 文字雲頁 */
@@ -1496,25 +1499,28 @@ window.U4=(function(){
   var BASE=location.origin+location.pathname.replace(/[^/]*$/,'');
   var SUBMIT=BASE+'submit.html', ASK=BASE+'ask.html';
   var configured=function(){return window.FB_CONFIG&&FB_CONFIG.apiKey&&FB_CONFIG.apiKey.indexOf('PASTE')<0;};
-  var listify=function(o){return o?Object.keys(o).sort(function(a,b){return (o[a].t||0)-(o[b].t||0);}).map(function(k){return o[k].txt;}):[];};
+  var listify=function(o){return o?Object.keys(o).sort(function(a,b){return (o[a].t||0)-(o[b].t||0);}).map(function(k){return o[k].img?{img:o[k].img}:o[k].txt;}):[];};
   var root=null, online=false;
   var TOP={1:[],2:[],3:[],4:[],5:[],6:[]};
   var CLOUDS={struggles:[],knock:[]};
   var TOP2={1:[],2:[],3:[],4:[],5:[],6:[]};
   var LK='u4_'+ROOM;
   function loadLocal(){try{var d=JSON.parse(localStorage.getItem(LK));if(d){if(d.TOP)TOP=d.TOP;if(d.TOP2)TOP2=d.TOP2;if(d.CLOUDS)CLOUDS=d.CLOUDS;}}catch(e){}}
-  function saveLocal(){try{localStorage.setItem(LK,JSON.stringify({TOP:TOP,TOP2:TOP2,CLOUDS:CLOUDS}));}catch(e){}}
+  function saveLocal(){try{var T2={};Object.keys(TOP2).forEach(function(g){T2[g]=(TOP2[g]||[]).filter(function(t){return typeof t==='string';});});localStorage.setItem(LK,JSON.stringify({TOP:TOP,TOP2:T2,CLOUDS:CLOUDS}));}catch(e){}}
   function renderTop(g){
     var box=document.getElementById('pg'+g); if(!box)return;
-    var a=TOP[g]||[];
+    var a=(TOP[g]||[]).filter(function(t){return typeof t==='string';});
     box.innerHTML=a.length?a.map(function(t){return '<div class="gitem">'+esc(t)+'</div>';}).join('')
       :'<div class="empty-hint">掃 QR 把你們這一組想討論的靈修課題打上來，這裡會即時出現。</div>';
   }
   function renderTop2(g){
     var box=document.getElementById('bg'+g); if(!box)return;
     var a=TOP2[g]||[];
-    box.innerHTML=a.length?a.map(function(t){return '<div class="gitem">'+esc(t)+'</div>';}).join('')
-      :'<div class="empty-hint">掃 QR 把你們這一組的討論重點打上來，這裡會即時出現。</div>';
+    box.innerHTML=a.length?a.map(function(t){
+      if(t&&t.img)return '<div class="gitem gimg"><img src="'+t.img+'" alt="小組截圖" title="點一下放大"></div>';
+      return '<div class="gitem">'+esc(t)+'</div>';
+    }).join('')
+      :'<div class="empty-hint">掃 QR 把你們這一組的討論重點打上來（文字或截圖都可以），這裡會即時出現。</div>';
   }
   var wcPending={};
   function renderCloud(p){if(wcPending[p])return;wcPending[p]=true;requestAnimationFrame(function(){wcPending[p]=false;doRenderCloud(p);});}
@@ -1537,6 +1543,12 @@ window.U4=(function(){
     if(typeof WordCloud==='function'){try{WordCloud(canvas,{list:list,gridSize:Math.max(4,Math.round(w/60)),weightFactor:function(n){return base*(0.85+0.6*(n/maxF))*(1+0.15*Math.min(n-1,5));},fontFamily:'"Noto Serif TC",serif',color:function(){return palette[Math.floor(Math.random()*palette.length)];},rotateRatio:0.16,rotationSteps:2,backgroundColor:'transparent',drawOutOfBound:false,shrinkToFit:true,minSize:12});}catch(e){}}
   }
   function refreshClouds(){renderCloud('struggles');renderCloud('knock');}
+  /* 組牆截圖點一下放大（再點關閉；Esc 也可關） */
+  document.addEventListener('click',function(e){
+    var im=e.target.closest&&e.target.closest('.gitem.gimg img');
+    if(im){var o=document.createElement('div');o.className='imglight';o.innerHTML='<img src="'+im.src+'" alt="">';o.addEventListener('click',function(){o.remove();});document.body.appendChild(o);return;}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){var o=document.querySelector('.imglight');if(o)o.remove();}});
   function initFB(){
     if(!configured()||typeof firebase==='undefined')return false;
     try{
@@ -1574,7 +1586,7 @@ window.U4=(function(){
     [1,2,3,4,5,6].forEach(function(g){(TOP[g]||[]).forEach(function(t){rows.push([ROOM,'第'+g+'組課題',t]);});});
     (CLOUDS.struggles||[]).forEach(function(t){rows.push([ROOM,'靈性掙扎雲',t]);});
     (CLOUDS.knock||[]).forEach(function(t){rows.push([ROOM,'壞念頭雲',t]);});
-    [1,2,3,4,5,6].forEach(function(g){(TOP2[g]||[]).forEach(function(t){rows.push([ROOM,'第'+g+'組討論',t]);});});
+    [1,2,3,4,5,6].forEach(function(g){(TOP2[g]||[]).forEach(function(t){rows.push([ROOM,'第'+g+'組討論',(t&&t.img)?'[截圖：CSV 不含圖檔，清空前請於雲端另存]':t]);});});
     var csv=rows.map(function(r){return r.map(csvCell).join(',');}).join('\r\n');
     var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
     a.href=url;a.download='單元四靈性修養_'+ROOM+'_'+stamp+'.csv';document.body.appendChild(a);a.click();a.remove();

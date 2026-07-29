@@ -24,6 +24,8 @@ textarea{width:100%;font-family:inherit;font-size:1.08rem;line-height:1.6;paddin
 textarea:focus{outline:none;border-color:var(--c)}
 button.send{margin-top:.7em;width:100%;background:var(--c);color:#fff;border:none;border-radius:999px;padding:.85em;font-size:1.1rem;font-weight:700;font-family:inherit;cursor:pointer;letter-spacing:.05em}
 button.send:active{transform:translateY(1px);opacity:.9}
+button.send.alt{background:#fff;color:var(--c);border:2px solid var(--c)}
+.item img{display:block;max-width:100%;border-radius:8px;margin:.2em 0}
 .list{margin-top:1em;display:flex;flex-direction:column;gap:.55em}
 .item{background:#FBF6E8;border-left:4px solid var(--c);border-radius:8px;padding:.6em .8em;font-size:1rem;white-space:pre-wrap;position:relative}
 .item .del{position:absolute;top:.3em;right:.5em;color:#b08;opacity:.5;font-size:.8rem;background:none;border:none;cursor:pointer}
@@ -41,6 +43,8 @@ button.send:active{transform:translateY(1px);opacity:.9}
     <label>我們這一組想討論的靈修課題</label>
     <textarea id="main" placeholder="例：明明知道該放下，為什麼就是做不到？／在最忙的時候，靈修反而最容易停掉，怎麼辦？／怎麼陪一個說『活著好沒意義』的學生？……（可分多次送出）"></textarea>
     <button class="send" onclick="send()">送出</button>
+    <input type="file" id="shot" accept="image/*" style="display:none">
+    <button class="send alt" id="shotBtn" style="display:none" onclick="document.getElementById('shot').click()">上傳截圖（討論筆記照片）</button>
     <div class="list" id="mainList"></div>
   </section>
   <p class="foot" id="foot">連線中…</p>
@@ -63,10 +67,11 @@ button.send:active{transform:translateY(1px);opacity:.9}
     document.querySelector('#blkMain label').textContent='我們這一組的討論重點';
     document.getElementById('main').setAttribute('placeholder','例：最想討論的念頭／有效的靈修方法／挫折中學到的……');
     document.title='第'+g+'組 討論 · 投稿';
+    document.getElementById('shotBtn').style.display='';
   }
   function esc(s){return String(s||'').replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m];});}
   function configured(){return window.FB_CONFIG&&FB_CONFIG.apiKey&&FB_CONFIG.apiKey.indexOf('PASTE')<0;}
-  function listify(o){if(!o)return[];return Object.keys(o).sort(function(a,b){return (o[a].t||0)-(o[b].t||0);}).map(function(k){return {k:k,txt:o[k].txt};});}
+  function listify(o){if(!o)return[];return Object.keys(o).sort(function(a,b){return (o[a].t||0)-(o[b].t||0);}).map(function(k){return {k:k,txt:o[k].txt,img:o[k].img};});}
   var DB=null, foot=document.getElementById('foot');
   function flash(t){var f=document.getElementById('flash');f.textContent=t;f.classList.add('show');setTimeout(function(){f.classList.remove('show');},1400);}
   function render(arr){
@@ -74,7 +79,8 @@ button.send:active{transform:translateY(1px);opacity:.9}
     if(!arr||!arr.length){box.innerHTML='<div class="empty">還沒送出課題。</div>';return;}
     box.innerHTML=arr.map(function(o){
       var del=DB?'<button class="del" data-k="'+o.k+'">刪</button>':'';
-      return '<div class="item">'+esc(o.txt)+del+'</div>';
+      var body=o.img?'<img src="'+o.img+'" alt="截圖">':esc(o.txt);
+      return '<div class="item">'+body+del+'</div>';
     }).join('');
   }
   document.getElementById('mainList').addEventListener('click',function(e){
@@ -91,6 +97,30 @@ button.send:active{transform:translateY(1px);opacity:.9}
     else{var a=loadLocal();a.push(txt);saveLocal(a);renderLocal();}
     ta.value='';flash('已送出！');
   };
+  /* 截圖上傳：canvas 壓縮成 JPEG dataURL 存進同一個 Firebase 節點（毋須另設 Storage）。
+     第一輪 長邊1400/品質0.72；仍太大改 1000/0.55；超過 ~1.8MB 拒收提示重拍。 */
+  document.getElementById('shot').addEventListener('change',function(){
+    var f=this.files&&this.files[0]; this.value=''; if(!f)return;
+    if(!DB){flash('尚未連線，無法上傳截圖');return;}
+    flash('處理中…');
+    var img=new Image(), rd=new FileReader();
+    rd.onload=function(){img.src=rd.result;};
+    img.onload=function(){
+      function comp(maxDim,q){
+        var w=img.width,h=img.height,r=Math.min(1,maxDim/Math.max(w,h));
+        var c=document.createElement('canvas');c.width=Math.round(w*r);c.height=Math.round(h*r);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        return c.toDataURL('image/jpeg',q);
+      }
+      var d=comp(1400,0.72);
+      if(d.length>1200000)d=comp(1000,0.55);
+      if(d.length>1800000){flash('圖片太大，請截小一點再試');return;}
+      DB.push({img:d,t:Date.now()});
+      flash('截圖已送出！');
+    };
+    img.onerror=function(){flash('讀不懂這張圖，請換一張');};
+    rd.readAsDataURL(f);
+  });
   if(configured()&&typeof firebase!=='undefined'){
     try{
       firebase.initializeApp(window.FB_CONFIG);
