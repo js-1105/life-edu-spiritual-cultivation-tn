@@ -113,6 +113,8 @@ ul.fl{list-style:none} ul.fl li{position:relative;padding:.5em 0 .5em 1.6em;font
 ul.fl li::before{content:"";position:absolute;left:0;top:1.05em;width:.7em;height:.7em;background:var(--color-accent);border-radius:50%}
 .slide.dense ul.fl li{font-size:clamp(1.06rem,1.5vw,1.4rem);padding-top:.36em;padding-bottom:.36em;line-height:1.4}
 .slide.dense ul.fl li::before{top:.9em}
+.slide.pivotal ul.fl li{padding-top:.32em;padding-bottom:.32em;line-height:1.5}.slide.pivotal ul.fl li::before{top:.85em}
+ul.fl.tight li{padding-top:.3em;padding-bottom:.3em;line-height:1.5}ul.fl.tight li::before{top:.82em}
 .practice{background:linear-gradient(135deg,rgba(212,175,55,.13),rgba(212,175,55,.03));border:2px dashed var(--color-accent);padding:1.2em 1.5em;border-radius:16px;margin-top:.5em}
 .practice .label{display:inline-block;background:var(--color-primary);color:#fff;padding:.25em .9em;border-radius:999px;font-size:.85rem;font-weight:600;margin-bottom:.5em;letter-spacing:.1em}
 .big-q{font-family:var(--font-serif);font-size:clamp(1.5rem,3.2vw,2.6rem);font-weight:700;color:var(--color-primary);line-height:1.5}
@@ -276,15 +278,15 @@ body.has-zoom #zoomBackdrop{opacity:1;visibility:visible}
 .icepanel .l5{top:84%}.icepanel .l5 .t{font-size:clamp(1.25rem,1.9vw,1.75rem);color:#FCE7C8}
 
 /* S33 深潛階梯：向下深潛的四層反思 */
-.dive{position:relative;border-radius:18px;overflow:hidden;width:100%;padding:clamp(1.2em,2vw,1.7em) clamp(1.2em,2.2vw,2em) clamp(1em,1.8vw,1.4em);background:linear-gradient(180deg,#d7edf5 0%,#5fa0bd 30%,#1f6d90 62%,#083046 100%);box-shadow:0 18px 44px rgba(0,0,0,.22)}
-.dive .surf{position:absolute;top:.55em;left:1.5em;font-size:clamp(.68rem,1vw,.88rem);letter-spacing:.3em;color:#0a4a63;font-weight:700}
-.dstep{display:flex;align-items:center;gap:clamp(.6em,1.1vw,1em);background:rgba(255,255,255,.94);border-radius:13px;box-shadow:0 6px 16px rgba(0,20,40,.28);padding:clamp(.5em,.9vw,.72em) clamp(.9em,1.5vw,1.25em);margin:clamp(.38em,.75vw,.6em) 0}
+.dive{position:relative;border-radius:18px;overflow:hidden;width:100%;padding:clamp(.7em,1.5vh,1.7em) clamp(1.2em,2.2vw,2em) clamp(.5em,1.2vh,1.4em);background:linear-gradient(180deg,#d7edf5 0%,#5fa0bd 30%,#1f6d90 62%,#083046 100%);box-shadow:0 18px 44px rgba(0,0,0,.22)}
+.dive .surf{position:absolute;top:.45em;left:1.2em;font-size:clamp(.9rem,1vw,.95rem);letter-spacing:.3em;color:#0a4a63;font-weight:700}
+.dstep{display:flex;align-items:center;line-height:1.35;gap:clamp(.6em,1.1vw,1em);background:rgba(255,255,255,.94);border-radius:13px;box-shadow:0 6px 16px rgba(0,20,40,.28);padding:clamp(.24em,.7vh,.72em) clamp(.9em,1.5vw,1.25em);margin:clamp(.15em,.5vh,.6em) 0}
 .dstep.s1{width:72%;margin-left:0}.dstep.s2{width:72%;margin-left:7%}.dstep.s3{width:72%;margin-left:14%}.dstep.s4{width:72%;margin-left:21%}
-.dstep .n{flex:none;width:clamp(2.1rem,3vw,2.8rem);height:clamp(2.1rem,3vw,2.8rem);border-radius:50%;color:#fff;font-family:var(--font-serif);font-weight:900;font-size:clamp(1.1rem,1.5vw,1.4rem);display:flex;align-items:center;justify-content:center}
+.dstep .n{flex:none;width:clamp(1.5rem,3.2vh,2.6rem);height:clamp(1.5rem,3.2vh,2.6rem);border-radius:50%;color:#fff;font-family:var(--font-serif);font-weight:900;font-size:clamp(.95rem,1.8vh,1.35rem);display:flex;align-items:center;justify-content:center}
 .dstep.s1 .n{background:#3f9fc0}.dstep.s2 .n{background:#2c86ae}.dstep.s3 .n{background:#276b95}.dstep.s4 .n{background:#0f4e74}
 .dstep .lab{font-family:var(--font-serif);font-weight:900;font-size:clamp(1.15rem,1.65vw,1.5rem);color:#12303a}
 .dstep .g{color:#4a5560;font-size:clamp(.9rem,1.25vw,1.14rem);margin-left:.45em;font-weight:400}
-.dive .backup{display:block;text-align:right;color:#F0D48A;font-weight:700;letter-spacing:.05em;font-size:clamp(.82rem,1.1vw,1.02rem);margin-top:.5em}
+.dive .backup{display:block;text-align:right;color:#F0D48A;font-weight:700;letter-spacing:.05em;font-size:clamp(.9rem,1.1vw,1.02rem);margin-top:clamp(.18em,.45vh,.5em)}
 /* S31 覺察心法：壞念頭從門外往門內竄，眼珠左右跟隨它的動靜，光暈隨警覺增亮（同一 5.2s 節奏） */
 @keyframes s31ImpLunge{
   0%,22%{transform:translate(-26px,4px) rotate(3deg)}
@@ -507,22 +509,10 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
   <p class="muted" style="max-width:none;margin-top:.6em">這六句，是你們一年半來在小組與靈修筆記裡，日日操練的功夫。</p>
 </section>
 
-<!-- 複習③ 與五大素養關係（樞紐） -->
-<section class="slide roomy">
-  <h2>複習③　它為什麼是「樞紐」</h2>
-  <p class="lead" style="max-width:none">依五大核心素養的次序來看，靈性修養貫穿其中、居中為樞紐：</p>
-  <ul class="fl" style="margin-top:.2em">
-    <li><b>終極關懷</b>（定方向）——靈性的覺醒，縮短人與終極理想的距離。</li>
-    <li><b>價值思辨</b>（定道路）——靈性的反思，讓價值判斷更有深度與方向。</li>
-    <li><b>靈性修養</b>（給動力）——它是人通往<b>人格統整與知行合一</b>的途徑。</li>
-    <li><b>人學探索</b>（基礎）——靈性的自覺，讓人深入「人是什麼」的殿堂。</li>
-    <li><b>哲學思考</b>（方法）——靈性的覺察與反思，正是後設思考的核心。</li>
-  </ul>
-</section>
 
-<!-- 複習④ 日常操練 -->
+<!-- 複習③ 日常操練 -->
 <section class="slide">
-  <h2>複習④　日常生活中的操練</h2>
+  <h2>複習③　日常生活中的操練</h2>
   <div class="grid2" style="flex:none;align-items:stretch;gap:2vw;margin-top:.3em">
     <div class="card"><h3>早課・晚課</h3><p>晨起，默想六原則、立定一天的決心；睡前，省察今天——好的感恩、不好的悔改，再準備明天。飯前、睡前的簡短祈禱與默想亦然。</p></div>
     <div class="card"><h3>境界現前時</h3><p>只用五官看事件，就容易被它役使；睜開靈性的眼睛，每一件外在的事，都可以是自我「靈修操練」或「神人互動」的時機。</p></div>
@@ -624,46 +614,15 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 <!-- S24 學理收束 -->
 <section class="slide">
   <h2>命名，不是承認失敗</h2>
-  <blockquote style="max-width:36em">「只談『健康』的靈性理論，很難安頓人性的黑暗與軟弱；<b>靈性修養則直面這些挑戰，並將其視為靈性成長不可或缺的部分。</b>」</blockquote>
+  <blockquote style="max-width:36em;margin:.4em 0;padding:.4em 1.1em">「只談『健康』的靈性理論，很難安頓人性的黑暗與軟弱；<b>靈性修養則直面這些挑戰，並將其視為靈性成長不可或缺的部分。</b>」</blockquote>
   <p class="src">孫效智〈以生命教育為核心重構靈性健康理論〉（2025）</p>
   <ul class="fl" style="margin-top:.2em">
     <li><b>掙扎 ≠ 失敗</b>：能覺察、能命名自己的幽暗，正是靈性「覺性」在運作、是邁向人格統整的起點。</li>
     <li><b>你不孤單</b>：五毒、七罪跨越文明平行存在——這是全人類共同的功課。</li>
-    <li><b>掙扎可以轉化</b>：接納而不姑息；「念起即覺，覺之即無」——下一頁我們看，這些毒與罪如何轉成智慧與美德。</li>
+    <li><b>掙扎可以轉化</b>：接納而不姑息；「念起即覺，覺之即無」——看穿之後，毒與罪也能轉成智慧與美德。</li>
   </ul>
 </section>
 
-<!-- S25 轉化：五智與七美德 -->
-<section class="slide">
-  <h2>而且，掙扎可以「轉化」</h2>
-  <p class="lead" style="max-width:none">這些靈性困境不是要消滅、也不是用來定罪——同一股能量，看穿並修養之後，能<b>轉成智慧與美德</b>。</p>
-  <div class="grid2" style="flex:none;gap:2.2vw;align-items:start;margin-top:.1em">
-    <div>
-      <h3 style="color:var(--color-primary);margin:.1em 0 .1em">五毒 → 五智</h3>
-      <p class="muted" style="max-width:none;margin:0 0 .3em">煩惱即菩提：每一毒看穿後，顯為一種智慧</p>
-      <table class="tbl"><tbody>
-        <tr><td class="lv">貪</td><td>→ 妙觀察智（善巧明辨）</td></tr>
-        <tr><td class="lv">嗔</td><td>→ 大圓鏡智（清明照見）</td></tr>
-        <tr><td class="lv">癡</td><td>→ 法界體性智（體悟實相）</td></tr>
-        <tr><td class="lv">慢</td><td>→ 平等性智（平等無分別）</td></tr>
-        <tr><td class="lv">疑</td><td>→ 成所作智（成事利他）</td></tr>
-      </tbody></table>
-      <p class="src" style="margin-top:.25em">依密教五方佛「轉識成智」體系</p>
-    </div>
-    <div>
-      <h3 style="color:var(--color-primary);margin:.1em 0 .1em">七罪宗 → 七美德</h3>
-      <table class="tbl"><tbody>
-        <tr><td class="lv">傲慢</td><td>→ 謙遜</td></tr>
-        <tr><td class="lv">嫉妒</td><td>→ 仁愛</td></tr>
-        <tr><td class="lv">憤怒</td><td>→ 忍耐</td></tr>
-        <tr><td class="lv">懶惰</td><td>→ 勤勉</td></tr>
-        <tr><td class="lv">貪婪</td><td>→ 慷慨</td></tr>
-        <tr><td class="lv">迷色</td><td>→ 貞潔</td></tr>
-        <tr><td class="lv">貪饕</td><td>→ 節制</td></tr>
-      </tbody></table>
-    </div>
-  </div>
-</section>
 
 <!-- S26 文字雲：個人靈性掙扎命名 -->
 <section class="slide">
@@ -681,12 +640,6 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
   </div>
 </section>
 
-<!-- 課前作業匯整鏡像·過渡 -->
-<section class="slide roomy">
-  <h2>從你們的作業裡，我們看見了真實的自己</h2>
-  <p class="lead" style="max-width:none">你們課前完成的〈我的靈性爭戰地圖〉，其實已經是一份最誠實的靈性地圖。接下來，我們把全班的樣貌收攏起來——隱去所有足以辨識身分的細節——一起看看：我們共同卡在哪裡？誰已經找到一些路？又有哪裡，仍然「知道，卻做不到」？</p>
-  <p class="muted" style="max-width:none">這不是要評斷任何一個人，而是把「我們共同的靈性困境」攤在陽光下——這正是靈性修養要做的事。</p>
-</section>
 
 <!-- 課前作業匯整鏡像·困境總覽 -->
 <section class="slide">
@@ -709,16 +662,16 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
 </section>
 
 <!-- 課前作業匯整鏡像·瞋憤怒·知行落差 -->
-<section class="slide roomy">
+<section class="slide roomy" style="padding-bottom:13vh">
   <h2>誠實地說：知行落差</h2>
   <div class="practice" style="margin-top:.3em">
     <span class="label">仍在路上</span>
-    <ul class="fl" style="margin-top:.2em">
+    <ul class="fl tight" style="margin-top:.2em">
       <li>知道要「緩於發怒」，做到的卻是壓抑與生悶氣——不是真正的改變。</li>
       <li>覺察變快了，但一失去掌控，仍被同一種模式牽動。</li>
     </ul>
   </div>
-  <p class="muted" style="text-align:center;max-width:none;margin-top:.6em">稍後借重 REACH 寬恕、慈心觀與東方大師的功夫，更深入這場戰役。</p>
+  <p class="muted" style="text-align:center;max-width:none;margin-top:.35em;line-height:1.5;margin-bottom:0">別急——下午我們會學幾套具體的功夫：一步一步放下怒氣、真正寬恕，再回來打這場仗。</p>
 </section>
 
 <!-- 課前作業匯整鏡像·我執想掌控·樣貌 -->
@@ -754,41 +707,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
   <p class="muted" style="text-align:center;max-width:none;margin-top:.8em">健康的靈性生命，是給予與接受彼此流動的循環。</p>
 </section>
 
-<!-- 課前作業匯整鏡像·給受失衡對治·東西方智慧 -->
-<section class="slide">
-  <h2>讓給予與接受，重新流動</h2>
-  <div class="grid2" style="flex:none;gap:2.2vw;align-items:start;margin-top:.2em">
-    <div>
-      <h3 style="color:var(--color-primary);margin:.1em 0 .25em">西方智慧</h3>
-      <table class="tbl" style="font-size:clamp(1.1rem,1.75vw,1.8rem)"><tbody>
-        <tr><td class="lv">亞里斯多德</td><td>慷慨是中道——恰如其分地給，也要能恰如其分地接受</td></tr>
-        <tr><td class="lv">本篤會規</td><td>祈禱與勞動的節奏——安息排進日常，不是有剩才做</td></tr>
-        <tr><td class="lv">盧雲</td><td>醫治者也要能承認自己需要被陪伴——只給不受，也是驕傲</td></tr>
-      </tbody></table>
-    </div>
-    <div>
-      <h3 style="color:var(--color-primary);margin:.1em 0 .25em">東方智慧</h3>
-      <table class="tbl" style="font-size:clamp(1.1rem,1.75vw,1.8rem)"><tbody>
-        <tr><td class="lv">佛教．布施</td><td>布施要與智慧（般若）配合，否則慈悲成了失衡</td></tr>
-        <tr><td class="lv">老子</td><td>天之道，損有餘而補不足——動態平衡的流動（《道德經》第七十七章）</td></tr>
-        <tr><td class="lv">孔子</td><td>己欲立而立人，己欲達而達人——給受本是彼此成全（《論語．雍也》）</td></tr>
-      </tbody></table>
-    </div>
-  </div>
-</section>
 
-<!-- 課前作業匯整鏡像·給受失衡對治·具體操練 -->
-<section class="slide roomy">
-  <h2>具體操練：重新學會接受</h2>
-  <div class="practice" style="margin-top:.3em">
-    <span class="label">具體操練</span>
-    <ul class="fl" style="margin-top:.2em">
-      <li>把「接受」排進行事曆：安排被照顧的時段，和付出同等重要。</li>
-      <li>每天一問：今天我接受了什麼、從誰那裡？</li>
-      <li>對只接受不付出者：安排一次不求回報的給予。</li>
-    </ul>
-  </div>
-</section>
 
 <!-- 課前作業匯整鏡像·驕傲·樣貌 -->
 <section class="slide roomy">
@@ -916,9 +835,9 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
   </div>
   <p class="q3foot muted">一問比一問深——像曾子「三省吾身」，一層層把我們划向生命的深處。</p>
 </section>
-<section class="slide">
-  <h2>潛下去，再浮上來：全程的覺醒</h2>
-  <p class="lead" style="max-width:none;margin-bottom:.3em">「當下三問」引領我們一層一層划向生命深處——潛到底，再帶著答案浮回生活：</p>
+<section class="slide" style="padding-bottom:9vh">
+  <h2 style="margin-bottom:.4em">潛下去，再浮上來：全程的覺醒</h2>
+  <p class="lead" style="max-width:none;margin-bottom:.3em;line-height:1.5">「當下三問」引領我們一層一層划向生命深處——潛到底，再帶著答案浮回生活：</p>
   <div class="dive">
     <span class="surf">水面</span>
     <div class="dstep s1"><div class="n">一</div><div><span class="lab">當下反思</span><span class="g">我為何會做這個選擇？</span></div></div>
@@ -927,21 +846,7 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
     <div class="dstep s4"><div class="n">四</div><div><span class="lab">終極關懷</span><span class="g">什麼，是值得我活出的人生意義？</span></div></div>
     <span class="backup">↑ 帶著答案，浮回生活</span>
   </div>
-  <p class="muted" style="max-width:none;margin-top:.35em">門口的 <b>覺察心法</b>（守住起心動念）＋ 看懂整座<b>冰山</b>（潛到底的覺察）＝ 內在戰場「<b>從頭到尾</b>」的覺醒，最終接上<b>人生三問</b>：為何而活、如何而活、如何知行合一。</p>
-</section>
-<section class="slide">
-  <h2>換你來：為來敲門的壞念頭命名</h2>
-  <div class="cloud-stage">
-    <div class="cloud-side">
-      <p class="lead">分六組討論：用剛學的「<b>覺察心法</b>」，挑出<b>最困擾你、或最想一起討論</b>的那個念頭——它可能還在門口敲門，也可能早已進門住下。掃 QR，用 1–3 個字為它命名。</p>
-      <div class="cloud-qr"><div class="qr-box" data-cloud="knock"></div><div class="qr-cap">掃我投稿</div></div>
-      <p class="src" id="fbStatusCloud3">連線狀態</p>
-    </div>
-    <div class="cloud-canvas-wrap">
-      <canvas id="cloud-knock"></canvas>
-      <div class="cloud-empty" id="empty-knock">大家為壞念頭取的名字，會在這裡即時長成一朵雲。</div>
-    </div>
-  </div>
+  <p class="muted" style="max-width:none;margin-top:.35em;line-height:1.5;margin-bottom:0">門口的 <b>覺察心法</b>（守住起心動念）＋ 看懂整座<b>冰山</b>（潛到底的覺察）＝ 內在戰場「<b>從頭到尾</b>」的覺醒，最終接上<b>人生三問</b>：為何而活、如何而活、如何知行合一。</p>
 </section>
 
 <section class="slide">
@@ -1396,16 +1301,17 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
   <p>靈性修養不是一門「要教給學生的內容」，<br>它首先是<b>老師存在的品質</b>。所以陪伴學生，要從自己開始。</p>
 </section>
 
-<section class="slide roomy">
+<section class="slide pivotal" style="padding-bottom:11vh">
   <h2>為什麼，靈性修養是樞紐</h2>
-  <p class="lead" style="max-width:none">走到這裡你會發現：靈性修養不是五大素養旁邊的一項，而是貫穿其中的<b>水分與養分</b>。</p>
-  <ul class="fl">
-    <li>沒有靈性的覺察，<b>終極關懷</b>難以扎根；</li>
-    <li>沒有靈性的反思，<b>價值思辨</b>缺乏深度；</li>
-    <li>靈性的自覺，正是<b>哲學思考</b>（後設思考）的核心；</li>
-    <li>靈性的眼睛，讓人深入<b>人學探索</b>的殿堂。</li>
+  <p class="lead" style="max-width:none;line-height:1.55">走到這裡你會發現：靈性修養不是五大素養旁邊的一項，而是貫穿其中的<b>水分與養分</b>——依五大核心素養的次序來看，它居中為樞紐：</p>
+  <ul class="fl" style="margin-top:.2em">
+    <li><b>終極關懷</b>（定方向）——靈性的覺醒，縮短人與終極理想的距離。</li>
+    <li><b>價值思辨</b>（定道路）——靈性的反思，讓價值判斷更有深度與方向。</li>
+    <li><b>靈性修養</b>（給動力）——它是人通往<b>人格統整與知行合一</b>的途徑。</li>
+    <li><b>人學探索</b>（基礎）——靈性的自覺，讓人深入「人是什麼」的殿堂。</li>
+    <li><b>哲學思考</b>（方法）——靈性的覺察與反思，正是後設思考的核心。</li>
   </ul>
-  <p class="muted" style="max-width:none">這也是為什麼，今天是這整週的「中軸」。</p>
+  <p class="muted" style="max-width:none;margin-bottom:1.5vh">這也是為什麼，今天是這整週的「中軸」。</p>
 </section>
 
 <!-- 頒獎（獨立頁，凸顯獎盃與頒獎儀式，2026-07-18 教授指示：不放結語文字、不放回到首頁按鈕） -->
