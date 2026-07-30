@@ -124,6 +124,12 @@ table.tbl th,table.tbl td{padding:.72em .95em;text-align:left;border-bottom:1px 
 table.tbl thead th{background:var(--color-primary);color:#fff;font-family:var(--font-serif);font-weight:700;border-bottom:none}
 table.tbl tbody tr:nth-child(even){background:rgba(212,175,55,.06)}
 table.tbl .lv{font-family:var(--font-serif);font-weight:700;color:var(--color-primary);white-space:nowrap}
+/* 慈心觀順序鏈膠囊 */
+.mchip{background:#fff;border:2px solid var(--color-line);border-radius:999px;padding:.32em .85em;font-size:clamp(1.05rem,1.5vw,1.5rem);font-weight:700;color:var(--color-primary);box-shadow:var(--shadow-soft);white-space:nowrap}
+.mchip.hard{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+.marw{color:var(--color-accent);font-weight:900;font-size:clamp(1.1rem,1.6vw,1.6rem)}
+.reachpg table.tbl th,.reachpg table.tbl td{padding:.48em .8em;line-height:1.4}
+.reachpg table.tbl{font-size:clamp(.98rem,1.4vw,1.4rem)}
 .feature-list{list-style:none;counter-reset:li-counter}
 .feature-list li{position:relative;padding:.5em 0 .5em 2.3em;font-size:clamp(1.5rem,1.6vw,1.66rem);border-bottom:1px dashed var(--color-line);line-height:1.5}
 .feature-list li::before{content:counter(li-counter);counter-increment:li-counter;position:absolute;left:0;top:.6em;width:1.6em;height:1.6em;background:var(--color-accent);color:var(--color-primary-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8em}
@@ -983,6 +989,41 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
     </div>
   </div>
 </section>
+
+<!-- 慈心觀：承上頁問一「願一切眾生獲得安樂」的展開練習 -->
+<section class="slide" style="padding-bottom:9vh">
+  <h2 style="margin-bottom:.3em">慈心觀（Metta）：把那句祈願變成日常練習</h2>
+  <p class="lead" style="max-width:none;line-height:1.45;margin-bottom:.35em;font-size:clamp(1.35rem,1.9vw,1.85rem)">仁波切說「一句祈願便已具足」。慈心觀就是這句祈願的操練：反覆在心裡對人說祝福——<b>「願你平安、願你健康、願你自在」</b>，順序由近而遠：</p>
+  <div style="display:flex;align-items:center;justify-content:center;gap:.7vw;width:100%;margin:.25em 0 .45em;flex:none">
+    <span class="mchip">自己</span><span class="marw">→</span>
+    <span class="mchip">親近的人</span><span class="marw">→</span>
+    <span class="mchip">一般認識的人</span><span class="marw">→</span>
+    <span class="mchip hard">難相處的人</span><span class="marw">→</span>
+    <span class="mchip">所有人</span>
+  </div>
+  <div class="grid2" style="flex:none;gap:3.4vw;align-items:stretch">
+    <div class="card" style="padding:.85em 1.05em"><h3 style="font-size:clamp(1.2rem,1.7vw,1.7rem)">卡的是「難相處的人」那一層</h3><p style="line-height:1.5;margin-bottom:0">前面幾層都不難。這個練習的用意正是：<b>你有能力對討厭的人生出善意</b>——而且練久了，會變容易。</p></div>
+    <div class="card" style="padding:.85em 1.05em"><h3 style="font-size:clamp(1.2rem,1.7vw,1.7rem)">從「自己」開始，也是重點</h3><p style="line-height:1.5;margin-bottom:0">對自己苛刻的人，很難真心祝福別人。先願自己平安，才有餘裕把祝福送出去。</p></div>
+  </div>
+</section>
+
+<!-- REACH 寬恕：承上頁問二「在寬恕的那一刻生起智慧」的可操作五步 -->
+<section class="slide reachpg" style="padding-bottom:9vh">
+  <h2 style="margin-bottom:.25em">REACH 寬恕：五步放下對一個人的怨</h2>
+  <p class="lead" style="max-width:none;line-height:1.45;margin-bottom:.3em;font-size:clamp(1.25rem,1.7vw,1.65rem)">把「寬恕」變成走得完的路。<b>reach</b> 也是「伸出手」——伸手向對方，也伸手把自己從怨恨裡拉出來。</p>
+  <table class="tbl" style="flex:none">
+    <tbody>
+      <tr><td class="lv">R　回想</td><td><b>Recall the hurt</b>——誠實面對那件事，不假裝沒發生。</td></tr>
+      <tr><td class="lv">E　同理</td><td><b>Empathize</b>——試著想「他當時在想什麼、怕什麼」；不是替他找藉口，是理解他為什麼那樣做。</td></tr>
+      <tr><td class="lv">A　當禮物送出</td><td><b>Altruistic gift</b>——寬恕不是對方賺來的，是你決定給的；想想你自己也曾被原諒過。</td></tr>
+      <tr><td class="lv">C　立志</td><td><b>Commit</b>——明確對自己說「我決定原諒了」，甚至寫下來。</td></tr>
+      <tr><td class="lv">H　守住</td><td><b>Hold on</b>——之後怨氣還會回來，那不代表失敗；提醒自己「我已經決定過了」。</td></tr>
+    </tbody>
+  </table>
+  <p class="muted" style="max-width:none;text-align:center;margin-top:.3em;line-height:1.45;margin-bottom:0">寬恕是<b>你自己的功課</b>：不需要對方道歉或改變，也不等於和好、不等於容忍。</p>
+  <p class="src" style="text-align:center;margin-top:.25em">Everett L. Worthington Jr.（維吉尼亞聯邦大學心理學教授）；1995 年他的母親遭謀殺——這套模型是他親身走過的功課</p>
+</section>
+
 <!-- 依納爵靈修兩帖：耶穌會《25個依納爵靈修的寶富》，英語講述＋繁中燒字幕 -->
 <section class="slide">
   <h2>依納爵靈修的寶富：西方的修練功夫</h2>
