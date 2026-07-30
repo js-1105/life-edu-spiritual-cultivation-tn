@@ -69,6 +69,14 @@ button.send.alt{background:#fff;color:var(--c);border:2px solid var(--c)}
     document.title='第'+g+'組 討論 · 投稿';
     document.getElementById('shotBtn').style.display='';
   }
+  if(round==='square'){
+    document.querySelector('.bar .s').textContent='體驗活動：小組討論重點';
+    document.getElementById('introTxt').innerHTML='回顧剛才的活動：有什麼<b>卡關</b>的地方？關鍵的<b>突破點</b>是什麼？如果<b>重新再來一次</b>，怎麼做比較好？把你們這一組討論的重點打上來（文字或截圖都可以，可分多次送出），會即時出現在投影幕上你們這一組的頁面。';
+    document.querySelector('#blkMain label').textContent='我們這一組的討論重點';
+    document.getElementById('main').setAttribute('placeholder','例：卡關的地方／關鍵突破點／重來一次會怎麼做……');
+    document.title='第'+g+'組 體驗活動 · 投稿';
+    document.getElementById('shotBtn').style.display='';
+  }
   function esc(s){return String(s||'').replace(/[&<>]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[m];});}
   function configured(){return window.FB_CONFIG&&FB_CONFIG.apiKey&&FB_CONFIG.apiKey.indexOf('PASTE')<0;}
   function listify(o){if(!o)return[];return Object.keys(o).sort(function(a,b){return (o[a].t||0)-(o[b].t||0);}).map(function(k){return {k:k,txt:o[k].txt,img:o[k].img};});}

@@ -1110,6 +1110,27 @@ function showConfirm({title='確認',message='',okText='確定',cancelText='取�
   </ul>
 </section>
 
+<!-- 體驗活動·六組掃碼上傳（第三輪互動 square） -->
+<section class="slide">
+  <h2>各組掃碼，上傳這一輪的討論</h2>
+  <p class="lead qr-intro" style="text-align:left">六組各派一位掃自己的 QR，把這一輪討論的重點打上來（<b>文字或截圖都可以</b>，可分多次送出），即時出現在投影幕上你們這一組的頁面。</p>
+  <div class="qr-stage">
+    <div class="qr-card" style="--c:#862633"><div class="qr-box" data-tp3="1"></div><div class="qr-cap">第1組</div></div>
+    <div class="qr-card" style="--c:#A8782E"><div class="qr-box" data-tp3="2"></div><div class="qr-cap">第2組</div></div>
+    <div class="qr-card" style="--c:#1E5F74"><div class="qr-box" data-tp3="3"></div><div class="qr-cap">第3組</div></div>
+    <div class="qr-card" style="--c:#6B5635"><div class="qr-box" data-tp3="4"></div><div class="qr-cap">第4組</div></div>
+    <div class="qr-card" style="--c:#5C1A23"><div class="qr-box" data-tp3="5"></div><div class="qr-cap">第5組</div></div>
+    <div class="qr-card" style="--c:#3E7D5A"><div class="qr-box" data-tp3="6"></div><div class="qr-cap">第6組</div></div>
+  </div>
+  <p class="src" id="fbStatusSq" style="text-align:center">連線狀態</p>
+</section>
+<section class="slide gpage" style="--c:#862633"><h2><span class="g-dot"></span>第1組 · 體驗活動討論</h2><div class="gbox" id="sg1"></div></section>
+<section class="slide gpage" style="--c:#A8782E"><h2><span class="g-dot"></span>第2組 · 體驗活動討論</h2><div class="gbox" id="sg2"></div></section>
+<section class="slide gpage" style="--c:#1E5F74"><h2><span class="g-dot"></span>第3組 · 體驗活動討論</h2><div class="gbox" id="sg3"></div></section>
+<section class="slide gpage" style="--c:#6B5635"><h2><span class="g-dot"></span>第4組 · 體驗活動討論</h2><div class="gbox" id="sg4"></div></section>
+<section class="slide gpage" style="--c:#5C1A23"><h2><span class="g-dot"></span>第5組 · 體驗活動討論</h2><div class="gbox" id="sg5"></div></section>
+<section class="slide gpage" style="--c:#3E7D5A"><h2><span class="g-dot"></span>第6組 · 體驗活動討論</h2><div class="gbox" id="sg6"></div></section>
+
 <!-- ppt S5 活動進行方式（流程）；頒獎環節 2026-07-18 教授指示獨立成頁，移至 S71 之後 -->
 <section class="slide pptx">
   <div class="band"><h2>活動進行方式</h2></div>
@@ -1540,9 +1561,10 @@ window.U4=(function(){
   var TOP={1:[],2:[],3:[],4:[],5:[],6:[]};
   var CLOUDS={struggles:[],knock:[]};
   var TOP2={1:[],2:[],3:[],4:[],5:[],6:[]};
+  var TOP3={1:[],2:[],3:[],4:[],5:[],6:[]};
   var LK='u4_'+ROOM;
-  function loadLocal(){try{var d=JSON.parse(localStorage.getItem(LK));if(d){if(d.TOP)TOP=d.TOP;if(d.TOP2)TOP2=d.TOP2;if(d.CLOUDS)CLOUDS=d.CLOUDS;}}catch(e){}}
-  function saveLocal(){try{var T2={};Object.keys(TOP2).forEach(function(g){T2[g]=(TOP2[g]||[]).filter(function(t){return typeof t==='string';});});localStorage.setItem(LK,JSON.stringify({TOP:TOP,TOP2:T2,CLOUDS:CLOUDS}));}catch(e){}}
+  function loadLocal(){try{var d=JSON.parse(localStorage.getItem(LK));if(d){if(d.TOP)TOP=d.TOP;if(d.TOP2)TOP2=d.TOP2;if(d.TOP3)TOP3=d.TOP3;if(d.CLOUDS)CLOUDS=d.CLOUDS;}}catch(e){}}
+  function saveLocal(){try{var T2={},T3={};Object.keys(TOP2).forEach(function(g){T2[g]=(TOP2[g]||[]).filter(function(t){return typeof t==='string';});});Object.keys(TOP3).forEach(function(g){T3[g]=(TOP3[g]||[]).filter(function(t){return typeof t==='string';});});localStorage.setItem(LK,JSON.stringify({TOP:TOP,TOP2:T2,TOP3:T3,CLOUDS:CLOUDS}));}catch(e){}}
   function renderTop(g){
     var box=document.getElementById('pg'+g); if(!box)return;
     var a=(TOP[g]||[]).filter(function(t){return typeof t==='string';});
@@ -1552,6 +1574,15 @@ window.U4=(function(){
   function renderTop2(g){
     var box=document.getElementById('bg'+g); if(!box)return;
     var a=TOP2[g]||[];
+    box.innerHTML=a.length?a.map(function(t){
+      if(t&&t.img)return '<div class="gitem gimg"><img src="'+t.img+'" alt="小組截圖" title="點一下放大"></div>';
+      return '<div class="gitem">'+esc(t)+'</div>';
+    }).join('')
+      :'<div class="empty-hint">掃 QR 把你們這一組的討論重點打上來（文字或截圖都可以），這裡會即時出現。</div>';
+  }
+  function renderTopSq(g){
+    var box=document.getElementById('sg'+g); if(!box)return;
+    var a=TOP3[g]||[];
     box.innerHTML=a.length?a.map(function(t){
       if(t&&t.img)return '<div class="gitem gimg"><img src="'+t.img+'" alt="小組截圖" title="點一下放大"></div>';
       return '<div class="gitem">'+esc(t)+'</div>';
@@ -1594,6 +1625,7 @@ window.U4=(function(){
       root.child('clouds/struggles').on('value',function(s){CLOUDS.struggles=listify(s.val()||{});renderCloud('struggles');});
       root.child('clouds/knock').on('value',function(s){CLOUDS.knock=listify(s.val()||{});renderCloud('knock');});
       [1,2,3,4,5,6].forEach(function(g){root.child('battle/g'+g).on('value',function(s){TOP2[g]=listify(s.val()||{});renderTop2(g);});});
+      [1,2,3,4,5,6].forEach(function(g){root.child('square/g'+g).on('value',function(s){TOP3[g]=listify(s.val()||{});renderTopSq(g);});});
       online=true; setStatus();
       return true;
     }catch(e){return false;}
@@ -1602,9 +1634,10 @@ window.U4=(function(){
     if(typeof QRCode==='undefined')return;
     document.querySelectorAll('.qr-box[data-tp]').forEach(function(b){var g=b.getAttribute('data-tp');b.innerHTML='';try{new QRCode(b,{text:SUBMIT+'?r=topics&g='+g,width:300,height:300,correctLevel:QRCode.CorrectLevel.M});}catch(e){}});
     document.querySelectorAll('.qr-box[data-tp2]').forEach(function(b){var g=b.getAttribute('data-tp2');b.innerHTML='';try{new QRCode(b,{text:SUBMIT+'?r=battle&g='+g,width:300,height:300,correctLevel:QRCode.CorrectLevel.M});}catch(e){}});
+    document.querySelectorAll('.qr-box[data-tp3]').forEach(function(b){var g=b.getAttribute('data-tp3');b.innerHTML='';try{new QRCode(b,{text:SUBMIT+'?r=square&g='+g,width:300,height:300,correctLevel:QRCode.CorrectLevel.M});}catch(e){}});
     document.querySelectorAll('.qr-box[data-cloud]').forEach(function(b){var p=b.getAttribute('data-cloud');b.innerHTML='';try{new QRCode(b,{text:ASK+'?p='+p,width:300,height:300,correctLevel:QRCode.CorrectLevel.M});}catch(e){}});
   }
-  function setStatus(){var t=root?(online?'● 線上（手機投稿即時更新）':'● 連線中…'):'○ 單機模式（未連網）';['fbStatus','fbStatus2','fbStatusCloud','fbStatusCloud3'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=t;});}
+  function setStatus(){var t=root?(online?'● 線上（手機投稿即時更新）':'● 連線中…'):'○ 單機模式（未連網）';['fbStatus','fbStatus2','fbStatusCloud','fbStatusCloud3','fbStatusSq'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=t;});}
   function clearCurrent(){
     var active=document.querySelector('.slide.active'); if(!active)return;
     var canv=active.querySelector('.cloud-canvas-wrap canvas');
@@ -1613,6 +1646,8 @@ window.U4=(function(){
     if(pg){var g=pg.id.replace('pg','');if(root){root.child('topics/g'+g).remove();}else{TOP[g]=[];saveLocal();renderTop(g);}showToast('已清空第'+g+'組課題',1800);return;}
     var bg=active.querySelector('.gbox[id^="bg"]');
     if(bg){var g=bg.id.replace('bg','');if(root){root.child('battle/g'+g).remove();}else{TOP2[g]=[];saveLocal();renderTop2(g);}showToast('已清空第'+g+'組討論',1800);return;}
+    var sg=active.querySelector('.gbox[id^="sg"]');
+    if(sg){var g=sg.id.replace('sg','');if(root){root.child('square/g'+g).remove();}else{TOP3[g]=[];saveLocal();renderTopSq(g);}showToast('已清空第'+g+'組體驗活動討論',1800);return;}
     showToast('此頁沒有可清空的互動資料',2200);
   }
   function nowStamp(){var d=new Date(),p=function(n){return (n<10?'0':'')+n;};return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes());}
@@ -1623,6 +1658,7 @@ window.U4=(function(){
     (CLOUDS.struggles||[]).forEach(function(t){rows.push([ROOM,'靈性掙扎雲',t]);});
     (CLOUDS.knock||[]).forEach(function(t){rows.push([ROOM,'壞念頭雲',t]);});
     [1,2,3,4,5,6].forEach(function(g){(TOP2[g]||[]).forEach(function(t){rows.push([ROOM,'第'+g+'組討論',(t&&t.img)?'[截圖：CSV 不含圖檔，清空前請於雲端另存]':t]);});});
+    [1,2,3,4,5,6].forEach(function(g){(TOP3[g]||[]).forEach(function(t){rows.push([ROOM,'第'+g+'組體驗活動',(t&&t.img)?'[截圖：CSV 不含圖檔，清空前請於雲端另存]':t]);});});
     var csv=rows.map(function(r){return r.map(csvCell).join(',');}).join('\r\n');
     var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
     a.href=url;a.download='單元四靈性修養_'+ROOM+'_'+stamp+'.csv';document.body.appendChild(a);a.click();a.remove();
@@ -1637,7 +1673,7 @@ window.U4=(function(){
         var val=snap.val(),fin=function(){root.remove();showToast('已下載 CSV＋雲端封存，並清空本場',3000);};
         if(val){firebase.database().ref('rooms/_archives/'+ROOM+'__'+stamp).set(val).then(fin,fin);}else fin();
       });
-    }else{TOP={1:[],2:[],3:[],4:[],5:[],6:[]};TOP2={1:[],2:[],3:[],4:[],5:[],6:[]};CLOUDS={struggles:[],knock:[]};saveLocal();[1,2,3,4,5,6].forEach(function(g){renderTop(g);renderTop2(g);});refreshClouds();showToast('已下載 CSV 並清空本場（本機）',3000);}
+    }else{TOP={1:[],2:[],3:[],4:[],5:[],6:[]};TOP2={1:[],2:[],3:[],4:[],5:[],6:[]};TOP3={1:[],2:[],3:[],4:[],5:[],6:[]};CLOUDS={struggles:[],knock:[]};saveLocal();[1,2,3,4,5,6].forEach(function(g){renderTop(g);renderTop2(g);renderTopSq(g);});refreshClouds();showToast('已下載 CSV 並清空本場（本機）',3000);}
   }
   function initAll(){
     document.addEventListener('keydown',function(e){if(!e.shiftKey)return;if(e.key==='C'||e.key==='c'){e.preventDefault();clearCurrent();}else if(e.key==='E'||e.key==='e'){e.preventDefault();exportAndClear();}});
